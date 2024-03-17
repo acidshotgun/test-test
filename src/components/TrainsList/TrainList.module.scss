@@ -1,0 +1,24 @@
+.wrapper {
+  width: 350px;
+}
+
+.head {
+  // height: 50px;
+  // font-size: 20px;
+  // background-color: #d1d1d1;
+  .head_items {
+    border-radius: 10px;
+    text-align: left;
+  }
+}
+
+.item {
+  height: 45px;
+  font-size: 17px;
+  border-bottom: 2px solid #d1d1d1;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: #d1d1d1;
+  }
+}

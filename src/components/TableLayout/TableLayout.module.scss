@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: #ffffff;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    .closing {
+      height: 30px;
+    }
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+}
