@@ -41,6 +41,7 @@ const trainsSlice = createSlice({
   },
 });
 
-export const { selectTrainByName, clearSelectedTrain } = trainsSlice.actions;
+export const { selectTrainByName, clearSelectedTrain, updateCellData } =
+  trainsSlice.actions;
 
 export default trainsSlice.reducer;
