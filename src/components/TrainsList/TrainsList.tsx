@@ -10,8 +10,6 @@ const TrainList = () => {
   const dispatch = useDispatch();
   const trainsData = useSelector((state) => state.trains.trains);
 
-  console.log("render");
-
   useEffect(() => {
     dispatch(fetchTrainsData());
   }, []);

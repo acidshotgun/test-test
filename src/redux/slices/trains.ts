@@ -1,9 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {
+interface ICharacteristict {
+  speed: number;
+  force: number;
+  engineAmperage: number;
+}
+
+interface ITrain {
+  name: string;
+  description: string;
+  characteristics: ICharacteristict[];
+}
+
+interface IState {
+  trains: ITrain[] | null;
+  status: string;
+  selectedTrain: ITrain | null;
+  validationError: boolean;
+}
+
+const initialState: IState = {
   trains: null,
   status: "idle",
   selectedTrain: null,
+  validationError: false,
 };
 
 export const fetchTrainsData = createAsyncThunk(
@@ -22,12 +42,15 @@ const trainsSlice = createSlice({
   reducers: {
     selectTrainByName: (state, action) => {
       const trainName = action.payload;
-      state.selectedTrain = state.trains.find(
-        (train) => train.name === trainName
-      );
+      state.selectedTrain =
+        state.trains?.find((train) => train.name === trainName) ?? null;
     },
     clearSelectedTrain: (state) => {
       state.selectedTrain = null;
+    },
+    updateCharacteristics: (state, action) => {
+      const { charIndex, charName, value } = action.payload;
+      state.selectedTrain.characteristics[charIndex][charName] = value;
     },
   },
   extraReducers: (builder) => {
@@ -41,7 +64,11 @@ const trainsSlice = createSlice({
   },
 });
 
-export const { selectTrainByName, clearSelectedTrain, updateCellData } =
-  trainsSlice.actions;
+export const {
+  selectTrainByName,
+  clearSelectedTrain,
+  updateCharacteristics,
+  submitValues,
+} = trainsSlice.actions;
 
 export default trainsSlice.reducer;
