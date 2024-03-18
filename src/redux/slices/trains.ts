@@ -16,14 +16,14 @@ interface IState {
   trains: ITrain[] | null;
   status: string;
   selectedTrain: ITrain | null;
-  validationError: boolean;
+  errors: string[];
 }
 
 const initialState: IState = {
   trains: null,
   status: "idle",
   selectedTrain: null,
-  validationError: false,
+  errors: [],
 };
 
 export const fetchTrainsData = createAsyncThunk(
@@ -52,6 +52,9 @@ const trainsSlice = createSlice({
       const { charIndex, charName, value } = action.payload;
       state.selectedTrain.characteristics[charIndex][charName] = value;
     },
+    addErrors: (state, action) => {
+      state.errors.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTrainsData.pending, (state) => {
@@ -68,7 +71,7 @@ export const {
   selectTrainByName,
   clearSelectedTrain,
   updateCharacteristics,
-  submitValues,
+  addErrors,
 } = trainsSlice.actions;
 
 export default trainsSlice.reducer;

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedTrain, submitValues } from "../../redux/slices/trains";
+import { clearSelectedTrain } from "../../redux/slices/trains";
 import TableLayout from "../TableLayout/TableLayout";
-import TableRow from "../TableRow/TableRow";
 import styles from "./SelectedTrain.module.scss";
+import TableCeil from "../TableCeil/TableCeil";
 
 // TODO доделать по валидации инпутов
 const SelectedTrain = () => {
@@ -45,7 +45,20 @@ const SelectedTrain = () => {
           {selectedTrain?.characteristics &&
             selectedTrain.characteristics.map((char, i) => {
               return (
-                <TableRow trainCharacteristic={char} key={i} rowIndex={i} />
+                <tr key={i} className={styles.item}>
+                  {Object.entries(char)
+                    .reverse()
+                    .map((param, idx) => {
+                      return (
+                        <TableCeil
+                          characteristicName={param[0]}
+                          characteristicValue={param[1]}
+                          key={idx}
+                          rowIndex={i}
+                        />
+                      );
+                    })}
+                </tr>
               );
             })}
         </TableLayout>

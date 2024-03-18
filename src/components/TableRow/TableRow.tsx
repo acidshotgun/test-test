@@ -8,7 +8,7 @@ interface ITableRow {
 }
 
 const TableRow = ({ trainCharacteristic, rowIndex }: ITableRow) => {
-  const renderParams = Object.entries(trainCharacteristic);
+  const renderParams = Object.entries(trainCharacteristic).reverse();
 
   return (
     <tr className={styles.item}>

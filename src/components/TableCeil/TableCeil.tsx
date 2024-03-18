@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { updateCharacteristics } from "../../redux/slices/trains";
 
@@ -8,38 +8,29 @@ interface ITableCeil {
   rowIndex: number;
 }
 
-const TableCeil = ({
-  characteristicName,
-  characteristicValue,
-  rowIndex,
-}: ITableCeil) => {
-  const [value, setValue] = useState(characteristicValue);
-  const dispatch = useDispatch();
+const TableCeil = memo(
+  ({ characteristicName, characteristicValue, rowIndex }: ITableCeil) => {
+    const dispatch = useDispatch();
 
-  useEffect(() => {}, [value]);
-
-  useEffect(() => {
-    setValue(characteristicValue);
-  }, [characteristicValue]);
-
-  return (
-    <td>
-      <input
-        type="text"
-        value={value}
-        name={characteristicName}
-        onChange={({ target }) =>
-          dispatch(
-            updateCharacteristics({
-              charIndex: rowIndex,
-              charName: target.name,
-              value: target.value,
-            })
-          )
-        }
-      />
-    </td>
-  );
-};
+    return (
+      <td>
+        <input
+          type="text"
+          value={characteristicValue}
+          name={characteristicName}
+          onChange={({ target }) =>
+            dispatch(
+              updateCharacteristics({
+                charIndex: rowIndex,
+                charName: target.name,
+                value: target.value,
+              })
+            )
+          }
+        />
+      </td>
+    );
+  }
+);
 
 export default TableCeil;
