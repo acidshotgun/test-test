@@ -1,13 +1,10 @@
 # React + TypeScript + Vite
 
-- [ ] Деплой - [ТЕСТОВОЕ](https://test-test-jvbzkplbz-acidshotguns-projects.vercel.app/)
-
-<br>
-
 - [ ] Запуск:
 
   + Склонировать командой `git clone https://github.com/acidshotgun/test-test`
   + Установить зависимости командой `npm install`
-  + Запустить командой `npm run dev`
+  + Запустить проект в режиме разработчика можно  командой `npm run dev`
+  + После запуска в режиме разработчика проект можно открыть по адресу `http://localhost:5173/`
      
 
