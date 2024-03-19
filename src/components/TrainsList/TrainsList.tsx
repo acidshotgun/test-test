@@ -12,7 +12,7 @@ const TrainList = () => {
   const trainsData = useSelector((state: RootState) => state.trains.trains);
 
   useEffect(() => {
-    dispatch(fetchTrainsData());
+    dispatch(fetchTrainsData() as any);
   }, []);
 
   const onHandleClick = (name: string) => {
