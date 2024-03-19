@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTrainsData, selectTrainByName } from "../../redux/slices/trains";
+import { RootState } from "../../redux/store";
 
 import TableLayout from "../TableLayout/TableLayout";
 
@@ -8,13 +9,13 @@ import styles from "./TrainList.module.scss";
 
 const TrainList = () => {
   const dispatch = useDispatch();
-  const trainsData = useSelector((state) => state.trains.trains);
+  const trainsData = useSelector((state: RootState) => state.trains.trains);
 
   useEffect(() => {
     dispatch(fetchTrainsData());
   }, []);
 
-  const onHandleClick = (name) => {
+  const onHandleClick = (name: string) => {
     dispatch(selectTrainByName(name));
   };
 

@@ -1,5 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import trainsReducer from "./slices/trains";
+import trainsReducer, { IState as TrainsState } from "./slices/trains";
+
+export interface RootState {
+  trains: TrainsState;
+}
 
 const store = configureStore({
   reducer: {

@@ -4,10 +4,10 @@ import styles from "./TableLayout.module.scss";
 interface ITableLayout {
   children: ReactNode;
   tableTitle: string;
-  tableSubtitle?: string;
+  tableSubtitle?: string | null;
   tableColumnsName: string[];
   tablePlaceholder?: string;
-  onHandleClose?: any;
+  onHandleClose?: () => void;
 }
 
 const TableLayout = ({

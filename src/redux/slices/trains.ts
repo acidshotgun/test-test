@@ -1,22 +1,28 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-interface ICharacteristict {
+export interface ICharacteristict {
   speed: number;
   force: number;
   engineAmperage: number;
 }
 
-interface ITrain {
+export interface ITrain {
   name: string;
   description: string;
   characteristics: ICharacteristict[];
 }
 
-interface IState {
+export interface IState {
   trains: ITrain[] | null;
   status: string;
   selectedTrain: ITrain | null;
   errors: string[];
+}
+
+interface UpdateCharacteristicsPayload {
+  charIndex: number;
+  charName: keyof ICharacteristict;
+  value: number;
 }
 
 const initialState: IState = {
@@ -48,12 +54,26 @@ const trainsSlice = createSlice({
     clearSelectedTrain: (state) => {
       state.selectedTrain = null;
     },
-    updateCharacteristics: (state, action) => {
+    updateCharacteristics: (
+      state,
+      action: PayloadAction<UpdateCharacteristicsPayload>
+    ) => {
       const { charIndex, charName, value } = action.payload;
-      state.selectedTrain.characteristics[charIndex][charName] = value;
+
+      if (!state.selectedTrain) return;
+
+      state.selectedTrain.characteristics[charIndex][charName] = +value;
     },
     addErrors: (state, action) => {
-      state.errors.push(action.payload);
+      const newError = action.payload;
+      const isDuplicate = state.errors.some((error) => error === newError);
+      if (!isDuplicate) {
+        state.errors.push(newError);
+      }
+    },
+    removeError: (state, action) => {
+      const errorToRemove = action.payload;
+      state.errors = state.errors.filter((error) => error !== errorToRemove);
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +92,7 @@ export const {
   clearSelectedTrain,
   updateCharacteristics,
   addErrors,
+  removeError,
 } = trainsSlice.actions;
 
 export default trainsSlice.reducer;
