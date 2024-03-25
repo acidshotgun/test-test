@@ -5,12 +5,30 @@ import TableLayout from "../TableLayout/TableLayout";
 import TableCell from "../TableCell/TableCell";
 import styles from "./SelectedTrain.module.scss";
 
+// Для дз
+import { useCallback } from "react";
+import { updateCharacteristics } from "../../redux/slices/trains";
+
 const SelectedTrain = () => {
   const selectedTrain = useSelector(
     (state: RootState) => state.trains.selectedTrain
   );
   const errors = useSelector((state: RootState) => state.trains.errors);
   const dispatch = useDispatch();
+
+  // vlad10 task
+  const updateTrainChar = useCallback(
+    (charIndex: number, charName: any, value: number) => {
+      dispatch(
+        updateCharacteristics({
+          charIndex: charIndex,
+          charName: charName,
+          value: +value,
+        })
+      );
+    },
+    []
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,6 +74,7 @@ const SelectedTrain = () => {
                           key={idx}
                           rowIndex={i}
                           errorInfo={errors.includes(`${i}_${param[0]}`)}
+                          updateTrainChar={updateTrainChar}
                         />
                       );
                     })}

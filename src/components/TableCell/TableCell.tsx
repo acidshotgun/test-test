@@ -9,6 +9,7 @@ interface ITableCell {
   characteristicValue: number;
   rowIndex: number;
   errorInfo: boolean;
+  updateTrainChar: any;
 }
 
 const TableCell = memo(
@@ -17,6 +18,7 @@ const TableCell = memo(
     characteristicValue,
     rowIndex,
     errorInfo,
+    updateTrainChar,
   }: ITableCell) => {
     const validateData = useCustomValidation();
     const dispatch = useDispatch();
@@ -32,15 +34,18 @@ const TableCell = memo(
           type="number"
           value={characteristicValue}
           name={characteristicName}
-          onChange={({ target }) =>
-            dispatch(
-              updateCharacteristics({
-                charIndex: rowIndex,
-                charName: target.name as keyof ICharacteristict,
-                value: +target.value,
-              })
-            )
-          }
+          onChange={({ target }) => {
+            updateTrainChar(rowIndex, target.name, +target.value);
+          }}
+          // onChange={({ target }) =>
+          //   dispatch(
+          //     updateCharacteristics({
+          //       charIndex: rowIndex,
+          //       charName: target.name as keyof ICharacteristict,
+          //       value: +target.value,
+          //     })
+          //   )
+          // }
         />
       </td>
     );
